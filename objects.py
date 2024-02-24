@@ -78,7 +78,7 @@ class Chromosome:
 
         self.length = len(self.genes)
         self.fitness_value = 1 / (
-                ((self.distance + 1) ** 8) + (self.length ** 4) + (self.direction_changes ** 4)
+                ((self.distance + 1) ** 8) + (self.length ** 2) + (self.direction_changes ** 8)
         )
 
     def is_safe(self,  gene: Gene):

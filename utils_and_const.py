@@ -64,20 +64,12 @@ def mutation(chrom, max_number):
     # in average, one of the entire new population will have a mutation
     if not random.randint(0, max_number):
         # generating "small" change
-        rand_rotation_times = random.randint(1, 3)
         rand_location = random.randint(0, len(chrom.list_dir) - 1)
-        rand_start_or_end = random.randint(0,1)
-        if rand_start_or_end:
-            new_list_dir = chrom.list_dir[:rand_location]
-            for dir_ in chrom.list_dir[rand_location:]:
-                new_list_dir.append(rotate_direction(dir_, rand_rotation_times))
+        rand_short = random.randint(0,1)
+        if rand_short and rand_location:
+            chrom.list_dir.pop(rand_location)
         else:
-            new_list_dir = []
-            for dir_ in chrom.list_dir[:rand_location]:
-                new_list_dir.append(rotate_direction(dir_, rand_rotation_times))
-            new_list_dir = new_list_dir + chrom.list_dir[rand_location:]
-
-        chrom.list_dir = new_list_dir
+            chrom.list_dir = chrom.list_dir[:rand_location] + [chrom.list_dir[rand_location]] + chrom.list_dir[rand_location:]
 
 
 def manhattan_distance(point1, point2):

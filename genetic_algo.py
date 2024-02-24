@@ -62,6 +62,34 @@ def make_child(parent1, parent2, grid: Grid):
     return child
 
 
+def make_child2(parent1: Chromosome, parent2: Chromosome, grid: Grid):
+    num_children = get_num_children()
+
+    child = Chromosome(grid=grid)
+
+    max_length_parent = parent1 if parent1.length > parent2.length else parent2
+    min_length_parent = parent2 if parent1.length > parent2.length else parent1
+
+    max_list_dir_length = len(max_length_parent.list_dir)
+    min_list_dir_length = len(min_length_parent.list_dir)
+
+    new_length = random.randint(min_list_dir_length, max_list_dir_length)
+
+    for i in range(new_length):
+        first = random.randint(0, 1)
+        if first or i >= min_list_dir_length:
+            child.list_dir.append(max_length_parent.list_dir[i])
+        else:
+            child.list_dir.append(min_length_parent.list_dir[i])
+
+    mutation(child, num_children)
+    adjust_child(child=child, grid=grid)
+
+    return child
+
+
+
+
 def adjust_child(child: Chromosome, grid: Grid):
     new_list_dir = []
     curr_gene = Gene(grid.start_point[0], grid.start_point[1])
@@ -116,7 +144,7 @@ def birth(grid: Grid, pool):
             parent1 = parent2
             parent2 = temp
 
-        child = make_child(parent1, parent2, grid)
+        child = make_child2(parent1, parent2, grid)
 
         grid.paint_chromosome(child)
         pool.extend([child, parent1, parent2])

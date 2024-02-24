@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import math
 
 # global variables - widget entries
 num_chromosomes_entry = None
@@ -34,13 +35,13 @@ def submit_action(root: tk.Tk):
         num_chromosomes = int(num_chromosomes_entry.get())
         num_generations = int(num_generations_entry.get())
         stop_generations = int(stop_generations_entry.get())
-        num_children = num_chromosomes // 20  # max number of the new chromosome created out of the selected parents
+        num_children = num_chromosomes // 20 # max number of the new chromosome created out of the selected parents
 
         # Check if the values are valid
         if num_chromosomes % 10 != 0:
             raise ValueError("Number of chromosomes must be a multiple of 10.")
-        if num_chromosomes < 20:
-            raise ValueError("Number of chromosomes must be at least 20.")
+        if num_chromosomes < 100:
+            raise ValueError("Number of chromosomes must be at least 100.")
         if num_generations <= 0 or stop_generations <= 0:
             raise ValueError("Number of generations and stop generations must be positive integers.")
 
